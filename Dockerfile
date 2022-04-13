@@ -1,8 +1,11 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ## Install Package Dependancies ##
-RUN apt update && apt install -y            \
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt install -y        \
     cmake                                   \ 
+    git                                     \
+    build-essential                         \
     gcc-arm-none-eabi                       \
     libnewlib-arm-none-eabi                 \
     libstdc++-arm-none-eabi-newlib          \ 
@@ -10,7 +13,9 @@ RUN apt update && apt install -y            \
     doxygen                                 \
     graphviz                                \
     ninja-build                             \
-        && apt clean
+        && apt-get clean
+
+RUN git --version
 
 ## Set up Work Directory ##
 WORKDIR /work
